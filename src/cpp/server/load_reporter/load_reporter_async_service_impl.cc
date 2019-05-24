@@ -18,6 +18,8 @@
 
 #include <grpc/support/port_platform.h>
 
+#include <inttypes.h>
+
 #include "src/cpp/server/load_reporter/load_reporter_async_service_impl.h"
 
 namespace grpc {
@@ -216,7 +218,8 @@ void LoadReporterAsyncServiceImpl::ReportLoadHandler::OnReadDone(
       gpr_log(
           GPR_INFO,
           "[LRS %p] Initial request received. Start load reporting (load "
-          "balanced host: %s, interval: %lu ms, lb_id_: %s, handler: %p)...",
+          "balanced host: %s, interval: %" PRIu64 " ms, lb_id_: %s,"
+          " handler: %p)...",
           service_, load_balanced_hostname_.c_str(), load_report_interval_ms_,
           lb_id_.c_str(), this);
       SendReport(self, true /* ok */);
